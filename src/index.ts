@@ -61,7 +61,24 @@ async function sleep(t: number) {
 async function syncTime(repeat: boolean = false) {
   await getServerOff(); // Preheat
 
-  let offset = await getServerOff();
+  let offset = 0;
+  offset += await getServerOff();
+  statusText = "동기화중... " + (offset).toFixed(3) + "ms";
+  await sleep(150);
+  offset += await getServerOff();
+  statusText = "동기화중... " + (offset/2).toFixed(3) + "ms";
+  await sleep(150);
+  offset += await getServerOff();
+  statusText = "동기화중... " + (offset/3).toFixed(3) + "ms";
+  await sleep(150);
+  offset += await getServerOff();
+  statusText = "동기화중... " + (offset/4).toFixed(3) + "ms";
+  await sleep(150);
+
+  offset /= 4;
+  setTimeOffset(offset);
+  statusText = "" + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
+  /*
   setTimeOffset(offset);
   statusText = "동기화중... " + offset.toFixed(3) + "ms";
   await sleep(1000);
@@ -70,12 +87,13 @@ async function syncTime(repeat: boolean = false) {
   setTimeOffset(offset);
   statusText = "동기화중... " + offset.toFixed(3) + "ms";
   await sleep(100);
-  statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
+  */
+  //statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
+
   if (repeat) {
-    setTimeout(
-      async ()=>{
-        await syncTime(true);
-      }, 1000 * 30);
+    setTimeout(async () => {
+      await syncTime(true);
+    }, 1000 * 30);
   }
 }
 
@@ -83,7 +101,7 @@ async function main() {
   await getServerOff();
   await sleep(500);
   await syncTime(false);
-  await sleep(500);
+  await sleep(1000);
   await syncTime(true);
 }
 

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -27,13 +28,56 @@ func timeHandle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(t)
 }
 
-func main() {
-	response, err := ntp.Query("time1.google.com")
-	if err != nil {
-		panic(err)
-	}
-	atomic.StoreInt64((*int64)(&Offset), int64(response.ClockOffset))
+func syncTime() {
+	var offset time.Duration
 
+	response, err := ntp.Query(
+		"time1.google.com",
+	)
+	if err != nil {
+		log.Println(err)
+	}
+	offset += response.ClockOffset
+	log.Println("Offset: from time1.google.com", response.ClockOffset, "Stratum", response.Stratum)
+
+	response, err = ntp.Query(
+		"time2.google.com",
+	)
+	if err != nil {
+		log.Println(err)
+	}
+	offset += response.ClockOffset
+	log.Println("Offset: from time2.google.com", response.ClockOffset, "Stratum", response.Stratum)
+
+	response, err = ntp.Query(
+		"time3.google.com",
+	)
+	if err != nil {
+		log.Println(err)
+	}
+	offset += response.ClockOffset
+	log.Println("Offset: from time3.google.com", response.ClockOffset, "Stratum", response.Stratum)
+
+	response, err = ntp.Query(
+		"time4.google.com",
+	)
+	if err != nil {
+		log.Println(err)
+	}
+	offset += response.ClockOffset
+	log.Println("Offset: from time4.google.com", response.ClockOffset, "Stratum", response.Stratum)
+
+	atomic.StoreInt64((*int64)(&Offset), int64(offset/4))
+}
+
+func main() {
+	go func() {
+		for {
+			syncTime()
+			log.Println("Synchronized time Offset:", Offset)
+			time.Sleep(time.Second * 60)
+		}
+	}()
 	// ./dist
 	dist := http.Dir("dist")
 	http.Handle("/", http.FileServer(dist))
