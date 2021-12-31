@@ -59,6 +59,8 @@ async function sleep(t: number) {
 }
 
 async function syncTime(repeat: boolean = false) {
+  await getServerOff(); // Preheat
+
   let offset = await getServerOff();
   setTimeOffset(offset);
   statusText = "동기화중... " + offset.toFixed(3) + "ms";
@@ -70,7 +72,10 @@ async function syncTime(repeat: boolean = false) {
   await sleep(100);
   statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
   if (repeat) {
-    setTimeout(syncTime, 1000 * 30);
+    setTimeout(
+      async ()=>{
+        await syncTime(true);
+      }, 1000 * 30);
   }
 }
 
