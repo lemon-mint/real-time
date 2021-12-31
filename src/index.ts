@@ -61,11 +61,14 @@ async function sleep(t: number) {
 async function syncTime(repeat: boolean = false) {
   let offset = await getServerOff();
   setTimeOffset(offset);
-  statusText = "서버와의 시간 차이: " + offset.toFixed(3) + "ms";
+  statusText = "동기화중... " + offset.toFixed(3) + "ms";
   await sleep(1000);
+  statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
   offset = await getServerOff();
   setTimeOffset(offset);
-  statusText = "서버와의 시간 차이: " + offset.toFixed(3) + "ms";
+  statusText = "동기화중... " + offset.toFixed(3) + "ms";
+  await sleep(100);
+  statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
   if (repeat) {
     setTimeout(syncTime, 1000 * 30);
   }
