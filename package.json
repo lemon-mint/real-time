@@ -1,0 +1,23 @@
+{
+  "name": "real-time",
+  "version": "1.0.0",
+  "description": "realtime time display",
+  "scripts": {
+    "serve": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemon-mint/real-time.git"
+  },
+  "keywords": [],
+  "author": "lemon-mint",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lemon-mint/real-time/issues"
+  },
+  "homepage": "https://github.com/lemon-mint/real-time#readme",
+  "dependencies": {
+    "parcel": "^2.0.1"
+  }
+}
