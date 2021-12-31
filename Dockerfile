@@ -6,4 +6,6 @@ WORKDIR /app
 RUN go get -u all
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/realtime.exe .
 
+EXPOSE 8080
+
 ENTRYPOINT ["/app/realtime.exe"]
