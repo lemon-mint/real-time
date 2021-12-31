@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "parcel index.html",
     "build": "parcel build index.html",
-    "buildandserve": "go build -o real-time.exe . && npm run build && real-time.exe"
+    "buildandserve": "rm -r dist && go build -o real-time.exe . && npm run build && real-time.exe"
   },
   "repository": {
     "type": "git",
