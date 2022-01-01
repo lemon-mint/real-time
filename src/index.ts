@@ -1,7 +1,10 @@
+import KalmanFilter from 'kalmanjs';
+
 const timeH1 = document.getElementById("time");
 const errorPre = document.getElementById("error");
 const errordiv = document.getElementById("error-div");
 const stat = document.getElementById("status");
+
 
 let timeOffset: number = 0;
 let errorString: string = "";
@@ -58,19 +61,20 @@ async function sleep(t: number) {
   return new Promise((resolve) => setTimeout(resolve, t));
 }
 
-async function syncTime(repeat: boolean = false, multiplier: number = 1.0) {
+async function syncTime(repeat: boolean = false, multiplier: number = 1.0, samples: number = 10) {
   await getServerOff(); // Preheat
 
   let offset = 0;
-  const TIME_SYNC_MEASURE_COUNT = 10;
-
+  const TIME_SYNC_MEASURE_COUNT = samples;
+  const kf = new KalmanFilter();
   for (let i = 0; i < TIME_SYNC_MEASURE_COUNT; i++) {
     console.log("Measurement: " + i);
     console.log("Requesting time offset...");
     const off = await getServerOff();
-    offset += off;
+    const kfOff = kf.filter(off);
     console.log("Server offset: " + off);
-
+    //console.log("Kalman filter offset: " + kfOff);
+    offset += kfOff;
     statusText = "Synchronizing... " + (offset / (i + 1)).toFixed(5) + "ms";
     await sleep(20);
   }
@@ -99,9 +103,7 @@ async function main() {
     console.log("Starting synchronization...");
     await getServerOff();
     await sleep(500);
-    await syncTime(false);
-    await sleep(100);
-    await syncTime(true, 0.9);
+    await syncTime(true, 1.0, 20);
     console.log("Successfully synchronized time.");
   } catch (e) {
     console.error(e);
