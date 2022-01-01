@@ -84,15 +84,19 @@ func main() {
 		}
 	}()
 	// ./dist
+	mux := http.NewServeMux()
 	dist := http.Dir("dist")
-	http.HandleFunc("/time", timeHandle)
+	mux.HandleFunc("/time", timeHandle)
 
 	healthz := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	}
-	http.HandleFunc("/healthz", healthz)
-	http.HandleFunc("/health", healthz)
+	mux.HandleFunc("/healthz", healthz)
+	mux.HandleFunc("/health", healthz)
 
-	http.Handle("/", http.FileServer(dist))
-	http.ListenAndServe(":8080", nil)
+	mux.Handle("/", http.FileServer(dist))
+	http.ListenAndServe(":8080", http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		rw.Header().Set("Access-Control-Allow-Origin", "*")
+		mux.ServeHTTP(rw, r)
+	}))
 }
