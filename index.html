@@ -33,24 +33,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>대한민국 서울의 현재 시간</title>
+    <title>Realtime Clock</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hawkz/gdcss/gd.min.css">
 </head>
 <body>
     <header>
         <nav>
-            <a href="/">대한민국 서울의 현재 시간</a>
+            <a href="/">Realtime Clock</a>
             <ul></ul>
         </nav>
     </header>
     <main>
         <header>
-            <h2 id="time">잠시만 기다려주세요 동기화 중...</h2>
-            <!-- 1640962800 : Sat Jan 01 2022 00:00:00 GMT+0900 (한국 표준시) -->
+            <h2 id="time">Please wait, synchronizing...</h2>
             <div id="error-div" hidden>
                 <pre id="error"></pre>
             </div>
-            <h5 id="status">동기화 중...</h5>
+            <h5 id="status">Synchronizing...</h5>
         </header>
     </main>
     <script src="/src/index.ts"></script>
