@@ -89,5 +89,9 @@ func main() {
 	dist := http.Dir("dist")
 	http.Handle("/", http.FileServer(dist))
 	http.HandleFunc("/time", timeHandle)
+
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
 	http.ListenAndServe(":8080", nil)
 }
