@@ -74,22 +74,14 @@ async function syncTime(repeat: boolean = false) {
   offset += await getServerOff();
   statusText = "동기화중... " + (offset/4).toFixed(3) + "ms";
   await sleep(150);
+  offset += await getServerOff();
+  statusText = "동기화중... " + (offset/5).toFixed(3) + "ms";
+  await sleep(150);
+  offset /= 5;
 
-  offset /= 4;
+  console.log("offset: " + offset);
   setTimeOffset(offset);
   statusText = "" + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
-  /*
-  setTimeOffset(offset);
-  statusText = "동기화중... " + offset.toFixed(3) + "ms";
-  await sleep(1000);
-  statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
-  offset = await getServerOff();
-  setTimeOffset(offset);
-  statusText = "동기화중... " + offset.toFixed(3) + "ms";
-  await sleep(100);
-  */
-  //statusText = "ΔT = " + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
-
   if (repeat) {
     setTimeout(async () => {
       await syncTime(true);

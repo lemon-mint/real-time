@@ -1,31 +1,38 @@
 package main
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"sync/atomic"
 	"time"
 
+	jsoniter "github.com/json-iterator/go"
+
 	"github.com/beevik/ntp"
 )
+
+var json = jsoniter.ConfigFastest
 
 var Offset = time.Duration(0)
 
 type Time struct {
-	T1 int64 `json:"t1"`
-	T2 int64 `json:"t2"`
+	T1 float64 `json:"t1"`
+	T2 float64 `json:"t2"`
 }
 
 func timeHandle(w http.ResponseWriter, r *http.Request) {
-	real := time.Now().Add(Offset)
 	t := Time{
-		T1: real.UnixMilli(),
+		T1: (float64(time.Now().Add(Offset).UnixNano()) / float64(1000)) / float64(1000),
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	t.T2 = time.Now().Add(Offset).UnixMilli()
-	json.NewEncoder(w).Encode(t)
+	//Use GMT Date
+	w.Header().Set("Date", time.Now().Add(Offset).UTC().Format(time.RFC1123))
+	e := json.NewEncoder(w)
+	t.T2 = (float64(time.Now().Add(Offset).UnixNano()) / float64(1000)) / float64(1000)
+	err := e.Encode(t)
+	if err != nil {
+		log.Println(err)
+	}
 }
 
 func syncTime() {
