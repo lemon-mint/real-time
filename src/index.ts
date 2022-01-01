@@ -62,11 +62,11 @@ async function syncTime(repeat: boolean = false) {
   await getServerOff(); // Preheat
 
   let offset = 0;
-  const TIME_SYNC_MEASURE_COUNT = 20;
+  const TIME_SYNC_MEASURE_COUNT = 10;
   for (let i = 0; i < TIME_SYNC_MEASURE_COUNT; i++) {
     offset += await getServerOff();
     statusText = "동기화중... " + (offset/(i+1)).toFixed(5) + "ms";
-    await sleep(150);
+    await sleep(25);
   }
   offset /= TIME_SYNC_MEASURE_COUNT;
 
