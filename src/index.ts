@@ -62,26 +62,17 @@ async function syncTime(repeat: boolean = false) {
   await getServerOff(); // Preheat
 
   let offset = 0;
-  offset += await getServerOff();
-  statusText = "동기화중... " + (offset).toFixed(3) + "ms";
-  await sleep(150);
-  offset += await getServerOff();
-  statusText = "동기화중... " + (offset/2).toFixed(3) + "ms";
-  await sleep(150);
-  offset += await getServerOff();
-  statusText = "동기화중... " + (offset/3).toFixed(3) + "ms";
-  await sleep(150);
-  offset += await getServerOff();
-  statusText = "동기화중... " + (offset/4).toFixed(3) + "ms";
-  await sleep(150);
-  offset += await getServerOff();
-  statusText = "동기화중... " + (offset/5).toFixed(3) + "ms";
-  await sleep(150);
-  offset /= 5;
+  const TIME_SYNC_MEASURE_COUNT = 20;
+  for (let i = 0; i < TIME_SYNC_MEASURE_COUNT; i++) {
+    offset += await getServerOff();
+    statusText = "동기화중... " + (offset/(i+1)).toFixed(5) + "ms";
+    await sleep(150);
+  }
+  offset /= TIME_SYNC_MEASURE_COUNT;
 
   console.log("offset: " + offset);
   setTimeOffset(offset);
-  statusText = "" + (getCurrentTime()-new Date().getTime()).toFixed(3) + "ms";
+  statusText = "" + (getCurrentTime() - new Date().getTime()).toFixed(5) + "ms";
   if (repeat) {
     setTimeout(async () => {
       await syncTime(true);
