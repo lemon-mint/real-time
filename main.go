@@ -25,8 +25,6 @@ func timeHandle(w http.ResponseWriter, r *http.Request) {
 		T1: (float64(time.Now().Add(Offset).UnixNano()) / float64(1000)) / float64(1000),
 	}
 	w.Header().Set("Content-Type", "application/json")
-	//Use GMT Date
-	w.Header().Set("Date", time.Now().Add(Offset).UTC().Format(time.RFC1123))
 	e := json.NewEncoder(w)
 	t.T2 = (float64(time.Now().Add(Offset).UnixNano()) / float64(1000)) / float64(1000)
 	err := e.Encode(t)
@@ -87,11 +85,14 @@ func main() {
 	}()
 	// ./dist
 	dist := http.Dir("dist")
-	http.Handle("/", http.FileServer(dist))
 	http.HandleFunc("/time", timeHandle)
 
-	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+	healthz := func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
-	})
+	}
+	http.HandleFunc("/healthz", healthz)
+	http.HandleFunc("/health", healthz)
+
+	http.Handle("/", http.FileServer(dist))
 	http.ListenAndServe(":8080", nil)
 }
