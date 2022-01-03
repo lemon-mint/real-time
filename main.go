@@ -1,8 +1,10 @@
 package main
 
 import (
+	"embed"
 	"log"
 	"net/http"
+	"os"
 	"sync/atomic"
 	"time"
 
@@ -75,6 +77,9 @@ func syncTime() {
 	atomic.StoreInt64((*int64)(&Offset), int64(offset/4))
 }
 
+//go:embed dist/*
+var DistFS embed.FS
+
 func main() {
 	go func() {
 		for {
@@ -83,9 +88,14 @@ func main() {
 			time.Sleep(time.Second * 60)
 		}
 	}()
-	// ./dist
 	mux := http.NewServeMux()
-	dist := http.Dir("dist")
+	// ./dist
+	var dist http.FileSystem
+	if _, err := os.Stat("dist"); err == nil {
+		dist = http.Dir("dist")
+	} else {
+		dist = http.FS(DistFS)
+	}
 	mux.HandleFunc("/time", timeHandle)
 
 	healthz := func(w http.ResponseWriter, r *http.Request) {
