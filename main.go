@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"sync/atomic"
@@ -105,7 +106,29 @@ func main() {
 	mux.HandleFunc("/health", healthz)
 
 	mux.Handle("/", http.FileServer(dist))
-	http.ListenAndServe(":8080", http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+	lnHost := ":8080"
+	hostEnv := os.Getenv("HOST")
+	if hostEnv != "" {
+		lnHost = hostEnv
+	}
+	portEnv := os.Getenv("PORT")
+	if portEnv != "" {
+		lnHost = ":" + portEnv
+	} else {
+		portEnv = "8080"
+	}
+	ipEnv := os.Getenv("IP")
+	if ipEnv != "" {
+		ip := net.ParseIP(ipEnv)
+		if ip != nil {
+			lnHost = ipEnv + ":" + portEnv
+		}
+		if ip.To16() != nil {
+			lnHost = "[" + ipEnv + "]:" + portEnv
+		}
+	}
+
+	http.ListenAndServe(lnHost, http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		rw.Header().Set("Access-Control-Allow-Origin", "*")
 		mux.ServeHTTP(rw, r)
 	}))
