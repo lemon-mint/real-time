@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"io/fs"
 	"log"
 	"net"
 	"net/http"
@@ -95,7 +96,11 @@ func main() {
 	if _, err := os.Stat("dist"); err == nil {
 		dist = http.Dir("dist")
 	} else {
-		dist = http.FS(DistFS)
+		f, err := fs.Sub(DistFS, "dist")
+		if err != nil {
+			log.Fatal(err)
+		}
+		dist = http.FS(f)
 	}
 	mux.HandleFunc("/time", timeHandle)
 
