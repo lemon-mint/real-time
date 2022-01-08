@@ -85,9 +85,19 @@ var DistFS embed.FS
 func main() {
 	go func() {
 		for {
-			syncTime()
-			log.Println("Synchronized time Offset:", Offset)
-			time.Sleep(time.Second * 60)
+			func() {
+				defer func() {
+					if err := recover(); err != nil {
+						log.Println("==============================================================")
+						log.Println("Worker panic:", err)
+						log.Println("Recovering...")
+						log.Println("==============================================================")
+					}
+				}()
+				syncTime()
+				log.Println("Synchronized time Offset:", Offset)
+				time.Sleep(time.Second * 60)
+			}()
 		}
 	}()
 	mux := http.NewServeMux()
