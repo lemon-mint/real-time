@@ -142,14 +142,17 @@ func main() {
 			lnHost = "[" + ipEnv + "]:" + portEnv
 		}
 	}
-
+	//#nosec
 	ln, err := net.Listen("tcp", lnHost)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	http.Serve(ln, http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+	err = http.Serve(ln, http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		rw.Header().Set("Access-Control-Allow-Origin", "*")
 		mux.ServeHTTP(rw, r)
 	}))
+	if err != nil {
+		log.Fatal(err)
+	}
 }

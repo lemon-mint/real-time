@@ -1,6 +1,6 @@
 # Golang CI Tools Report
 
-Report generated at: 2022-01-13T07:13:06+09:00
+Report generated at: 2022-01-13T07:17:23+09:00
 
 Go version: go1.17.6
 
@@ -15,37 +15,20 @@ golang-ci-tools version: 0.1.1-dev
 ## gosec
 
 ```
-[gosec] 2022/01/13 07:13:12 Including rules: default
-[gosec] 2022/01/13 07:13:12 Excluding rules: default
-[gosec] 2022/01/13 07:13:13 Import directory: G:\mega\golang\projectv4\real-time
-[gosec] 2022/01/13 07:13:15 Checking package: main
-[gosec] 2022/01/13 07:13:15 Checking file: G:\mega\golang\projectv4\real-time\main.go
+[gosec] 2022/01/13 07:17:29 Including rules: default
+[gosec] 2022/01/13 07:17:29 Excluding rules: default
+[gosec] 2022/01/13 07:17:30 Import directory: G:\mega\golang\projectv4\real-time
+[gosec] 2022/01/13 07:17:32 Checking package: main
+[gosec] 2022/01/13 07:17:32 Checking file: G:\mega\golang\projectv4\real-time\main.go
 Results:
-
-
-[G:\mega\golang\projectv4\real-time\main.go:146] - G102 (CWE-200): Binds to all network interfaces (Confidence: HIGH, Severity: MEDIUM)
-    145: 
-  > 146: 	ln, err := net.Listen("tcp", lnHost)
-    147: 	if err != nil {
-
-
-
-[G:\mega\golang\projectv4\real-time\main.go:151-154] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
-    150: 
-  > 151: 	http.Serve(ln, http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-  > 152: 		rw.Header().Set("Access-Control-Allow-Origin", "*")
-  > 153: 		mux.ServeHTTP(rw, r)
-  > 154: 	}))
-    155: }
-
 
 
 Summary:
   Gosec  : dev
   Files  : 1
-  Lines  : 155
-  Nosec  : 0
-  Issues : 2
+  Lines  : 158
+  Nosec  : 1
+  Issues : 0
 
 
 ```
@@ -59,10 +42,10 @@ github.com/beevik/ntp (network)
 github.com/json-iterator/go (reflect, unsafe)
 github.com/modern-go/concurrent (file, reflect)
 github.com/modern-go/reflect2 (reflect, unsafe)
-golang.org/x/net/internal/socket (unsafe, file, network, syscall)
+golang.org/x/net/internal/socket (file, network, syscall, unsafe)
 golang.org/x/net/ipv4 (network, unsafe)
 golang.org/x/sys/internal/unsafeheader (unsafe)
-golang.org/x/sys/windows (unsafe, network, syscall)
+golang.org/x/sys/windows (network, syscall, unsafe)
 
 ```
 
