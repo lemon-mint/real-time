@@ -1,10 +1,10 @@
 # Golang CI Tools Report
 
-Report generated at: 2022-01-13T00:27:50+09:00
+Report generated at: 2022-01-13T07:13:06+09:00
 
 Go version: go1.17.6
 
-golang-ci-tools version: 0.1.0-dev
+golang-ci-tools version: 0.1.1-dev
 
 ## staticcheck
 
@@ -15,22 +15,22 @@ golang-ci-tools version: 0.1.0-dev
 ## gosec
 
 ```
-[gosec] 2022/01/13 00:27:55 Including rules: default
-[gosec] 2022/01/13 00:27:55 Excluding rules: default
-[gosec] 2022/01/13 00:27:55 Import directory: G:\mega\golang\projectv4\real-time
-[gosec] 2022/01/13 00:27:57 Checking package: main
-[gosec] 2022/01/13 00:27:57 Checking file: G:\mega\golang\projectv4\real-time\main.go
+[gosec] 2022/01/13 07:13:12 Including rules: default
+[gosec] 2022/01/13 07:13:12 Excluding rules: default
+[gosec] 2022/01/13 07:13:13 Import directory: G:\mega\golang\projectv4\real-time
+[gosec] 2022/01/13 07:13:15 Checking package: main
+[gosec] 2022/01/13 07:13:15 Checking file: G:\mega\golang\projectv4\real-time\main.go
 Results:
 
 
-[[30;43mG:\mega\golang\projectv4\real-time\main.go:146[0m] - G102 (CWE-200): Binds to all network interfaces (Confidence: HIGH, Severity: MEDIUM)
+[G:\mega\golang\projectv4\real-time\main.go:146] - G102 (CWE-200): Binds to all network interfaces (Confidence: HIGH, Severity: MEDIUM)
     145: 
   > 146: 	ln, err := net.Listen("tcp", lnHost)
     147: 	if err != nil {
 
 
 
-[[37;40mG:\mega\golang\projectv4\real-time\main.go:151-154[0m] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
+[G:\mega\golang\projectv4\real-time\main.go:151-154] - G104 (CWE-703): Errors unhandled. (Confidence: HIGH, Severity: LOW)
     150: 
   > 151: 	http.Serve(ln, http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
   > 152: 		rw.Header().Set("Access-Control-Allow-Origin", "*")
@@ -40,12 +40,12 @@ Results:
 
 
 
-[1;36mSummary:[0m
+Summary:
   Gosec  : dev
   Files  : 1
   Lines  : 155
   Nosec  : 0
-  Issues : [1;31m2[0m
+  Issues : 2
 
 
 ```
@@ -56,11 +56,13 @@ Results:
 github.com/lemon-mint/real-time (file, network)
 
 github.com/beevik/ntp (network)
-github.com/modern-go/concurrent (runtime, file)
-github.com/modern-go/reflect2 (runtime)
-golang.org/x/net/internal/socket (file, network, runtime, syscall)
-golang.org/x/net/ipv4 (network, runtime)
-golang.org/x/sys/windows (network, runtime, syscall)
+github.com/json-iterator/go (reflect, unsafe)
+github.com/modern-go/concurrent (file, reflect)
+github.com/modern-go/reflect2 (reflect, unsafe)
+golang.org/x/net/internal/socket (unsafe, file, network, syscall)
+golang.org/x/net/ipv4 (network, unsafe)
+golang.org/x/sys/internal/unsafeheader (unsafe)
+golang.org/x/sys/windows (unsafe, network, syscall)
 
 ```
 
@@ -68,13 +70,13 @@ golang.org/x/sys/windows (network, runtime, syscall)
 
 | Package Name | License File | License |
 | --- | --- | --- |
-| [github.com/modern-go/concurrent](https://pkg.go.dev/github.com/modern-go/concurrent) | [https://github.com/modern-go/concurrent/blob/master/LICENSE](https://github.com/modern-go/concurrent/blob/master/LICENSE) | Apache-2.0 |
 | [github.com/modern-go/reflect2](https://pkg.go.dev/github.com/modern-go/reflect2) | [https://github.com/modern-go/reflect2/blob/master/LICENSE](https://github.com/modern-go/reflect2/blob/master/LICENSE) | Apache-2.0 |
 | [github.com/lemon-mint/real-time](https://pkg.go.dev/github.com/lemon-mint/real-time) | [https://github.com/lemon-mint/real-time/blob/master/LICENSE](https://github.com/lemon-mint/real-time/blob/master/LICENSE) | Unlicense |
 | [github.com/beevik/ntp](https://pkg.go.dev/github.com/beevik/ntp) | [https://github.com/beevik/ntp/blob/master/LICENSE](https://github.com/beevik/ntp/blob/master/LICENSE) | BSD-2-Clause |
 | [golang.org/x/net](https://pkg.go.dev/golang.org/x/net) | [Unknown](Unknown) | BSD-3-Clause |
 | [golang.org/x/sys](https://pkg.go.dev/golang.org/x/sys) | [Unknown](Unknown) | BSD-3-Clause |
 | [github.com/json-iterator/go](https://pkg.go.dev/github.com/json-iterator/go) | [https://github.com/json-iterator/go/blob/master/LICENSE](https://github.com/json-iterator/go/blob/master/LICENSE) | MIT |
+| [github.com/modern-go/concurrent](https://pkg.go.dev/github.com/modern-go/concurrent) | [https://github.com/modern-go/concurrent/blob/master/LICENSE](https://github.com/modern-go/concurrent/blob/master/LICENSE) | Apache-2.0 |
 
 
 
