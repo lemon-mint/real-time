@@ -1,6 +1,10 @@
-# golang-ci-tools Report
+# Golang CI Tools Report
 
-Report generated at: 2022-01-12T23:51:54+09:00
+Report generated at: 2022-01-12T23:57:35+09:00
+
+Go version: go1.17.6
+
+golang-ci-tools version: 0.0.1-dev
 
 ## staticcheck
 
@@ -11,12 +15,12 @@ Report generated at: 2022-01-12T23:51:54+09:00
 ## gocap
 
 ```
-github.com/lemon-mint/real-time (network, file)
+github.com/lemon-mint/real-time (file, network)
 
 github.com/beevik/ntp (network)
 github.com/modern-go/concurrent (file, runtime)
 github.com/modern-go/reflect2 (runtime)
-golang.org/x/net/internal/socket (file, network, runtime, syscall)
+golang.org/x/net/internal/socket (syscall, file, network, runtime)
 golang.org/x/net/ipv4 (network, runtime)
 golang.org/x/sys/windows (network, runtime, syscall)
 
@@ -26,13 +30,13 @@ golang.org/x/sys/windows (network, runtime, syscall)
 
 | Package Name | License File | License |
 | --- | --- | --- |
-| [github.com/lemon-mint/real-time](https://pkg.go.dev/github.com/lemon-mint/real-time) | [https://github.com/lemon-mint/real-time/blob/master/LICENSE](https://github.com/lemon-mint/real-time/blob/master/LICENSE) | Unlicense |
-| [github.com/beevik/ntp](https://pkg.go.dev/github.com/beevik/ntp) | [https://github.com/beevik/ntp/blob/master/LICENSE](https://github.com/beevik/ntp/blob/master/LICENSE) | BSD-2-Clause |
-| [golang.org/x/net](https://pkg.go.dev/golang.org/x/net) | [Unknown](Unknown) | BSD-3-Clause |
 | [golang.org/x/sys](https://pkg.go.dev/golang.org/x/sys) | [Unknown](Unknown) | BSD-3-Clause |
 | [github.com/json-iterator/go](https://pkg.go.dev/github.com/json-iterator/go) | [https://github.com/json-iterator/go/blob/master/LICENSE](https://github.com/json-iterator/go/blob/master/LICENSE) | MIT |
 | [github.com/modern-go/concurrent](https://pkg.go.dev/github.com/modern-go/concurrent) | [https://github.com/modern-go/concurrent/blob/master/LICENSE](https://github.com/modern-go/concurrent/blob/master/LICENSE) | Apache-2.0 |
 | [github.com/modern-go/reflect2](https://pkg.go.dev/github.com/modern-go/reflect2) | [https://github.com/modern-go/reflect2/blob/master/LICENSE](https://github.com/modern-go/reflect2/blob/master/LICENSE) | Apache-2.0 |
+| [github.com/lemon-mint/real-time](https://pkg.go.dev/github.com/lemon-mint/real-time) | [https://github.com/lemon-mint/real-time/blob/master/LICENSE](https://github.com/lemon-mint/real-time/blob/master/LICENSE) | Unlicense |
+| [github.com/beevik/ntp](https://pkg.go.dev/github.com/beevik/ntp) | [https://github.com/beevik/ntp/blob/master/LICENSE](https://github.com/beevik/ntp/blob/master/LICENSE) | BSD-2-Clause |
+| [golang.org/x/net](https://pkg.go.dev/golang.org/x/net) | [Unknown](Unknown) | BSD-3-Clause |
 
 
 
