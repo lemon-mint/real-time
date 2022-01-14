@@ -4,7 +4,7 @@
   "description": "realtime time display",
   "scripts": {
     "serve": "parcel index.html",
-    "build": "parcel build index.html",
+    "build": "parcel build --no-source-maps index.html",
     "buildandserve": "rm -rf dist && npm run build && go build -o real-time.exe . && real-time.exe"
   },
   "repository": {
