@@ -1,0 +1,46 @@
+name: Go
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+
+    - name: Build
+      run: go build -v ./...
+
+    - name: Test
+      run: go test -v ./...
+    
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v2.5.2
+    
+    - name: Make Report
+      run: |
+        go install github.com/lemon-mint/golang-ci-tools@latest
+        golang-ci-tools > report.md
+
+    - id: get-comment-body
+      run: |
+          body=$(cat report.md)
+          body="${body//'%'/'%25'}"
+          body="${body//$'\n'/'%0A'}"
+          body="${body//$'\r'/'%0D'}" 
+          echo ::set-output name=body::$body
+    - name: commit-comment
+      uses: peter-evans/commit-comment@v1
+      with:
+        body: ${{ steps.get-comment-body.outputs.body }}
+
