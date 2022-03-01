@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"fmt"
+	"io"
 	"io/fs"
 	"log"
 	"net"
@@ -51,6 +52,12 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Pragma", "no-cache")
 	w.Header().Set("Expires", "0")
 
+	version := r.URL.Query().Get("version")
+	if version == "" {
+		version = "latest"
+	}
+	w.Header().Set("X-Version", version)
+
 	tz := r.URL.Query().Get("tz")
 	if tz == "Local" || tz == "" {
 		// Default to UTC
@@ -76,8 +83,20 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 
 	loc, err := time.LoadLocation(tz)
 	if err != nil {
-		w.Header().Set("Location", getBadgeURL("Error", "Invalid timezone", "eb4511", style))
-		w.WriteHeader(http.StatusTemporaryRedirect)
+		c := http.Client{
+			Timeout: time.Second * 5,
+		}
+		resp, err := c.Get(getBadgeURL("Error", "Invalid timezone", "eb4511", style))
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		defer resp.Body.Close()
+		w.WriteHeader(http.StatusBadRequest)
+		_, err = io.Copy(w, resp.Body)
+		if err != nil {
+			return
+		}
 		return
 	}
 	_, tzOffset := time.Now().In(loc).Zone()
@@ -86,8 +105,20 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 	now := time.Now().Add(offset)
 	data := now.Format("2006-01-02 15:04:05")
 
-	w.Header().Set("Location", getBadgeURL(label, data, color, style))
-	w.WriteHeader(http.StatusTemporaryRedirect)
+	c := http.Client{
+		Timeout: time.Second * 5,
+	}
+	resp, err := c.Get(getBadgeURL(label, data, color, style))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
+	w.WriteHeader(http.StatusOK)
+	_, err = io.Copy(w, resp.Body)
+	if err != nil {
+		return
+	}
 }
 
 func syncTime() {
