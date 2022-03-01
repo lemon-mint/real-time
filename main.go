@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
@@ -99,10 +100,12 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-	_, tzOffset := time.Now().In(loc).Zone()
+	tz, tzOffset := time.Now().UTC().In(loc).Zone()
+	w.Header().Set("X-Timezone-Offset", strconv.Itoa(tzOffset))
+	w.Header().Set("X-Timezone", tz)
 	var offset time.Duration = Offset
-	offset += time.Duration(tzOffset)
-	now := time.Now().Add(offset)
+	offset += time.Duration(tzOffset) * time.Second
+	now := time.Now().UTC().Add(offset)
 	data := now.Format("2006-01-02 15:04:05")
 
 	c := http.Client{
