@@ -92,7 +92,7 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		defer resp.Body.Close()
-		w.WriteHeader(http.StatusBadRequest)
+		w.WriteHeader(http.StatusOK)
 		_, err = io.Copy(w, resp.Body)
 		if err != nil {
 			return
