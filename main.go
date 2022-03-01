@@ -2,13 +2,17 @@ package main
 
 import (
 	"embed"
+	"fmt"
 	"io/fs"
 	"log"
 	"net"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 	"sync/atomic"
 	"time"
+	_ "time/tzdata"
 
 	jsoniter "github.com/json-iterator/go"
 
@@ -35,6 +39,55 @@ func timeHandle(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func getBadgeURL(label, message, color, style string) string {
+	return fmt.Sprintf("https://img.shields.io/static/v1?label=%s&message=%s&color=%s&style=%s", url.QueryEscape(label), url.QueryEscape(message), url.QueryEscape(color), url.QueryEscape(style))
+}
+
+func badgeHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "image/svg+xml")
+	w.Header().Set("Cache-Control", "max-age=0, no-cache, no-store")
+	w.Header().Set("Pragma", "no-cache")
+	w.Header().Set("Expires", "0")
+
+	tz := r.URL.Query().Get("tz")
+	if tz == "Local" || tz == "" {
+		// Default to UTC
+		tz = "UTC"
+	}
+
+	label := r.URL.Query().Get("label")
+	if label == "" {
+		label = tz
+	}
+
+	color := r.URL.Query().Get("color")
+	if color == "" {
+		color = "4bc51d"
+	} else {
+		color = strings.ToLower(color)
+	}
+
+	style := r.URL.Query().Get("style")
+	if style == "" {
+		style = "for-the-badge"
+	}
+
+	loc, err := time.LoadLocation(tz)
+	if err != nil {
+		w.Header().Set("Location", getBadgeURL("Error", "Invalid timezone", "eb4511", style))
+		w.WriteHeader(http.StatusTemporaryRedirect)
+		return
+	}
+	_, tzOffset := time.Now().In(loc).Zone()
+	var offset time.Duration = Offset
+	offset += time.Duration(tzOffset)
+	now := time.Now().Add(offset)
+	data := now.Format("2006-01-02 15:04:05")
+
+	w.Header().Set("Location", getBadgeURL(label, data, color, style))
+	w.WriteHeader(http.StatusTemporaryRedirect)
 }
 
 func syncTime() {
@@ -119,6 +172,7 @@ func main() {
 	}
 	mux.HandleFunc("/healthz", healthz)
 	mux.HandleFunc("/health", healthz)
+	mux.HandleFunc("/api/badge", badgeHandle)
 
 	mux.Handle("/", http.FileServer(dist))
 	lnHost := ":8080"
