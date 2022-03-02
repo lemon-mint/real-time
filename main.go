@@ -79,7 +79,7 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 	loc, err := time.LoadLocation(tz)
 	if err != nil {
 		w.WriteHeader(http.StatusOK)
-		badgerenderers.WriteForTheBadge(w, "Error", "Invalid timezone", "eb4511")
+		badgerenderers.WriteForTheBadge(w, "ERROR", "INVALID TIMEZONE", "eb4511")
 		return
 	}
 	tz, tzOffset := time.Now().UTC().In(loc).Zone()
@@ -92,7 +92,7 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("X-Time", data)
 	w.WriteHeader(http.StatusOK)
-	badgerenderers.WriteForTheBadge(w, label, data, color)
+	badgerenderers.WriteForTheBadge(w, strings.ToUpper(label), strings.ToUpper(data), color)
 }
 
 func syncTime() {
