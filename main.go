@@ -3,7 +3,6 @@ package main
 import (
 	"embed"
 	"fmt"
-	"io"
 	"io/fs"
 	"log"
 	"net"
@@ -17,6 +16,7 @@ import (
 	_ "time/tzdata"
 
 	jsoniter "github.com/json-iterator/go"
+	badgerenderers "github.com/lemon-mint/badge-renderers.go"
 
 	"github.com/beevik/ntp"
 )
@@ -84,20 +84,8 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 
 	loc, err := time.LoadLocation(tz)
 	if err != nil {
-		c := http.Client{
-			Timeout: time.Second * 5,
-		}
-		resp, err := c.Get(getBadgeURL("Error", "Invalid timezone", "eb4511", style))
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			return
-		}
-		defer resp.Body.Close()
 		w.WriteHeader(http.StatusOK)
-		_, err = io.Copy(w, resp.Body)
-		if err != nil {
-			return
-		}
+		badgerenderers.WriteForTheBadge(w, "Error", "Invalid timezone", "eb4511")
 		return
 	}
 	tz, tzOffset := time.Now().UTC().In(loc).Zone()
@@ -108,20 +96,9 @@ func badgeHandle(w http.ResponseWriter, r *http.Request) {
 	now := time.Now().UTC().Add(offset)
 	data := now.Format("2006-01-02 15:04:05")
 
-	c := http.Client{
-		Timeout: time.Second * 5,
-	}
-	resp, err := c.Get(getBadgeURL(label, data, color, style))
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
-	defer resp.Body.Close()
+	w.Header().Set("X-Time", data)
 	w.WriteHeader(http.StatusOK)
-	_, err = io.Copy(w, resp.Body)
-	if err != nil {
-		return
-	}
+	badgerenderers.WriteForTheBadge(w, label, data, color)
 }
 
 func syncTime() {
