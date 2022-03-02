@@ -15,6 +15,7 @@ import (
 
 	jsoniter "github.com/json-iterator/go"
 	badgerenderers "github.com/lemon-mint/badge-renderers.go"
+	"github.com/lemon-mint/envaddr"
 
 	"github.com/beevik/ntp"
 )
@@ -180,29 +181,8 @@ func main() {
 	mux.HandleFunc("/api/badge", badgeHandle)
 
 	mux.Handle("/", http.FileServer(dist))
-	lnHost := ":8080"
-	hostEnv := os.Getenv("HOST")
-	if hostEnv != "" {
-		lnHost = hostEnv
-	}
-	portEnv := os.Getenv("PORT")
-	if portEnv != "" {
-		lnHost = ":" + portEnv
-	} else {
-		portEnv = "8080"
-	}
-	ipEnv := os.Getenv("IP")
-	if ipEnv != "" {
-		ip := net.ParseIP(ipEnv)
-		if ip != nil {
-			lnHost = ipEnv + ":" + portEnv
-		}
-		if ip.To16() != nil {
-			lnHost = "[" + ipEnv + "]:" + portEnv
-		}
-	}
 	//#nosec
-	ln, err := net.Listen("tcp", lnHost)
+	ln, err := net.Listen("tcp", envaddr.Get(":8080"))
 	if err != nil {
 		log.Fatal(err)
 	}

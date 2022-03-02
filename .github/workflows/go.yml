@@ -23,10 +23,7 @@ jobs:
 
     - name: Test
       run: go test -v ./...
-    
-    - name: Run golangci-lint
-      uses: golangci/golangci-lint-action@v2.5.2
-    
+
     - name: Make Report
       run: |
         go install github.com/lemon-mint/golang-ci-tools@latest
