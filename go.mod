@@ -6,7 +6,7 @@ go 1.17
 require (
 	github.com/beevik/ntp v0.3.0
 	github.com/json-iterator/go v1.1.12
-	github.com/lemon-mint/badge-renderers.go v0.0.0-20220302060838-fbf65992e478
+	github.com/lemon-mint/badge-renderers.go v0.0.0-20220302120156-186b94a5f53b
 )
 
 require (
@@ -15,6 +15,6 @@ require (
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/quicktemplate v1.7.0 // indirect
-	golang.org/x/net v0.0.0-20220111093109-d55c255bac03 // indirect
-	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
+	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
+	golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 // indirect
 )
