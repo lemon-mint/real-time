@@ -2,12 +2,10 @@ package main
 
 import (
 	"embed"
-	"fmt"
 	"io/fs"
 	"log"
 	"net"
 	"net/http"
-	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -41,10 +39,6 @@ func timeHandle(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-}
-
-func getBadgeURL(label, message, color, style string) string {
-	return fmt.Sprintf("https://img.shields.io/static/v1?label=%s&message=%s&color=%s&style=%s", url.QueryEscape(label), url.QueryEscape(message), url.QueryEscape(color), url.QueryEscape(style))
 }
 
 func badgeHandle(w http.ResponseWriter, r *http.Request) {
