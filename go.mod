@@ -6,7 +6,7 @@ go 1.17
 require (
 	github.com/beevik/ntp v0.3.0
 	github.com/json-iterator/go v1.1.12
-	github.com/lemon-mint/badge-renderers.go v0.0.0-20220302120156-186b94a5f53b
+	github.com/lemon-mint/badge-renderers.go v0.0.0-20220302131200-2c07553148e6
 	github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e
 )
 
