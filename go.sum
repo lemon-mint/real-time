@@ -19,6 +19,8 @@ github.com/klauspost/compress v1.13.4/go.mod h1:8dP1Hq4DHOhN9w426knH3Rhby4rFm6D8
 github.com/klauspost/compress v1.13.5/go.mod h1:/3/Vjq9QcHkK5uEr5lBEmyoZ1iFhe47etQ6QUkpK6sk=
 github.com/lemon-mint/badge-renderers.go v0.0.0-20220302131200-2c07553148e6 h1:pd2jH4Sq4b9OypTsS74wSn/KLl9Ewc1ERresJ3Q7yHM=
 github.com/lemon-mint/badge-renderers.go v0.0.0-20220302131200-2c07553148e6/go.mod h1:YXr4+rekZSFd1jMOGyrf2i67OJha7WB2S34xRY6ZtF8=
+github.com/lemon-mint/badge-renderers.go v0.0.0-20220306221252-c319decf8449 h1:afQwwOiKhm4U6Sc8UEUmRscHNnzwPSwSLqARbT/6wJM=
+github.com/lemon-mint/badge-renderers.go v0.0.0-20220306221252-c319decf8449/go.mod h1:YXr4+rekZSFd1jMOGyrf2i67OJha7WB2S34xRY6ZtF8=
 github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e h1:WHTlxOrYAnJkd+5dFnSIWA2+mAdgpUlChJpzjnNrSGE=
 github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e/go.mod h1:kzf0S/z9swcXpeo2+e1fY63g5/ZfIop37MgBmXLmDL0=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
