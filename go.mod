@@ -7,7 +7,7 @@ require (
 	github.com/beevik/ntp v0.3.0
 	github.com/json-iterator/go v1.1.12
 	github.com/lemon-mint/badge-renderers.go v0.0.0-20220724091545-35d80d4559ad
-	github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e
+	github.com/lemon-mint/envaddr v0.0.0-20220724120637-f2bfd2710deb
 )
 
 require (
