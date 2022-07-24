@@ -21,6 +21,8 @@ github.com/lemon-mint/badge-renderers.go v0.0.0-20220302131200-2c07553148e6 h1:p
 github.com/lemon-mint/badge-renderers.go v0.0.0-20220302131200-2c07553148e6/go.mod h1:YXr4+rekZSFd1jMOGyrf2i67OJha7WB2S34xRY6ZtF8=
 github.com/lemon-mint/badge-renderers.go v0.0.0-20220306221252-c319decf8449 h1:afQwwOiKhm4U6Sc8UEUmRscHNnzwPSwSLqARbT/6wJM=
 github.com/lemon-mint/badge-renderers.go v0.0.0-20220306221252-c319decf8449/go.mod h1:YXr4+rekZSFd1jMOGyrf2i67OJha7WB2S34xRY6ZtF8=
+github.com/lemon-mint/badge-renderers.go v0.0.0-20220724091545-35d80d4559ad h1:SBTuo8LvaJ0NjgtdqxA3uYKW6bjyYam+tGNoRQE8XBE=
+github.com/lemon-mint/badge-renderers.go v0.0.0-20220724091545-35d80d4559ad/go.mod h1:mLwHJTSHmHs1ZL2SfEjRjMcuS1/TgWca5TwS3PRzNag=
 github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e h1:WHTlxOrYAnJkd+5dFnSIWA2+mAdgpUlChJpzjnNrSGE=
 github.com/lemon-mint/envaddr v0.0.0-20220115112619-b1acf77f317e/go.mod h1:kzf0S/z9swcXpeo2+e1fY63g5/ZfIop37MgBmXLmDL0=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
@@ -54,6 +56,8 @@ golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e/go.mod h1:oPkhp1MJrh7nUepCBc
 golang.org/x/sys v0.0.0-20220224120231-95c6836cb0e7/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9 h1:nhht2DYV/Sn3qOayu8lM+cU1ii9sTLUeBQwQQfUHtrs=
 golang.org/x/sys v0.0.0-20220227234510-4e6760a101f9/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
+golang.org/x/sys v0.0.0-20220422013727-9388b58f7150 h1:xHms4gcpe1YE7A3yIllJXP16CMAGuqwO2lX1mTyyRRc=
+golang.org/x/sys v0.0.0-20220422013727-9388b58f7150/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
 golang.org/x/term v0.0.0-20210927222741-03fcf44c2211/go.mod h1:jbD1KX2456YbFQfuXm/mYQcufACuNUgVhRMnK/tPxf8=
 golang.org/x/text v0.3.3/go.mod h1:5Zoc/QRtKVWzQhOtBMvqHzDpF6irO9z98xDceosuGiQ=
