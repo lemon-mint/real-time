@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/lemon-mint/real-time#readme",
   "dependencies": {
-    "kalmanjs": "^1.1.0",
+    "kalmanjs": "1.1.0",
     "parcel": "2.6.2"
   }
 }
