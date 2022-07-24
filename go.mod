@@ -1,7 +1,7 @@
 module github.com/lemon-mint/real-time
 
 // +heroku goVersion go1.17
-go 1.17
+go 1.18
 
 require (
 	github.com/beevik/ntp v0.3.0
